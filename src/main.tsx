@@ -13,7 +13,8 @@ import "./index.css";
 const Landing = lazy(() => import("./pages/Landing.tsx"));
 const AuthPage = lazy(() => import("./pages/Auth.tsx"));
 const Catalog = lazy(() => import("./pages/Catalog.tsx"));
-const RoomDetail = lazy(() => import("./pages/RoomDetail.tsx"));
+const DiseaseDetail = lazy(() => import("./pages/RoomDetail.tsx"));
+const Doctors = lazy(() => import("./pages/Doctors.tsx"));
 const Dashboard = lazy(() => import("./pages/Dashboard.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
@@ -122,8 +123,9 @@ createRoot(document.getElementById("root")!).render(
           <Suspense fallback={<RouteLoading />}>
             <Routes>
               <Route path="/" element={<Landing />} />
-              <Route path="/catalog" element={<Catalog />} />
-              <Route path="/room/:id" element={<RoomDetail />} />
+              <Route path="/diseases" element={<Catalog />} />
+              <Route path="/disease/:id" element={<DiseaseDetail />} />
+              <Route path="/doctors" element={<Doctors />} />
               <Route
                 path="/auth"
                 element={<AuthPage redirectAfterAuth="/dashboard" />}
