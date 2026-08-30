@@ -3,28 +3,33 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
-  HeartPulse,
-  Stethoscope,
-  Brain,
-  Eye,
-  Bone,
-  Baby,
-  Ambulance,
+  Star,
+  Wifi,
+  Coffee,
+  UtensilsCrossed,
+  Sparkles,
+  MapPin,
   Clock,
   Phone,
-  MapPin,
-  Star,
-  ShieldCheck,
-  Users,
-  Award,
+  Mail,
+  ArrowUpRight,
   ChevronRight,
   ChevronLeft,
   Menu,
   X,
-  Mail,
-  ArrowUpRight,
+  ShieldCheck,
+  Award,
+  Users,
+  Bath,
+  ParkingCircle,
+  Dumbbell,
+  Leaf,
+  Quote,
+  BedDouble,
+  Maximize,
+  Eye,
 } from "lucide-react";
-import { useState, useEffect, type ComponentType } from "react";
+import { useState, type ComponentType } from "react";
 import { Link } from "react-router";
 
 /* ──────────────────────────────────────────────────────────────
@@ -32,10 +37,10 @@ import { Link } from "react-router";
    ────────────────────────────────────────────────────────────── */
 const navLinks = [
   { label: "Home", href: "#home" },
-  { label: "Services", href: "#services" },
+  { label: "Rooms", href: "#rooms" },
   { label: "About", href: "#about" },
-  { label: "Doctors", href: "#doctors" },
-  { label: "Testimonials", href: "#testimonials" },
+  { label: "Experience", href: "#experience" },
+  { label: "Reviews", href: "#reviews" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -43,11 +48,11 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  useEffect(() => {
+  useState(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  });
 
   return (
     <nav
@@ -57,12 +62,12 @@ function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl glass-btn flex items-center justify-center text-white font-bold text-lg">
+          <div className="w-10 h-10 rounded-xl bg-navy-900 flex items-center justify-center text-white font-bold text-lg tracking-tight">
             D
           </div>
           <span className="text-xl font-bold tracking-tight">
-            <span className="text-primary">DMC</span>{" "}
-            <span className="text-foreground/70">Hospital</span>
+            DMC{" "}
+            <span className="font-light text-navy-600">Hospitality</span>
           </span>
         </a>
 
@@ -72,7 +77,7 @@ function Navbar() {
             <a
               key={link.label}
               href={link.href}
-              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors rounded-lg hover:bg-white/40"
+              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-white/40"
             >
               {link.label}
             </a>
@@ -82,16 +87,16 @@ function Navbar() {
         <div className="hidden lg:flex items-center gap-3">
           <a
             href="tel:+1800123456"
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/5 rounded-lg transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg"
           >
             <Phone className="w-4 h-4" />
-            Emergency
+            +1 800-123-456
           </a>
           <Link
             to="/auth"
             className="glass-btn px-5 py-2.5 rounded-xl text-sm font-semibold text-white inline-flex items-center gap-2"
           >
-            Book Appointment
+            Sign In
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -110,7 +115,6 @@ function Navbar() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
           className="lg:hidden glass-strong mt-2 mx-4 rounded-2xl p-4"
         >
           {navLinks.map((link) => (
@@ -123,20 +127,13 @@ function Navbar() {
               {link.label}
             </a>
           ))}
-          <div className="border-t border-white/30 mt-2 pt-2 flex flex-col gap-2">
-            <a
-              href="tel:+1800123456"
-              className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-primary"
-            >
-              <Phone className="w-4 h-4" />
-              Emergency: +1 800-123-456
-            </a>
+          <div className="border-t border-black/5 mt-2 pt-2 flex flex-col gap-2">
             <Link
               to="/auth"
               onClick={() => setMobileOpen(false)}
               className="glass-btn px-4 py-3 rounded-xl text-sm font-semibold text-white text-center"
             >
-              Book Appointment
+              Sign In
             </Link>
           </div>
         </motion.div>
@@ -144,6 +141,96 @@ function Navbar() {
     </nav>
   );
 }
+
+/* ──────────────────────────────────────────────────────────────
+   ROOMS DATA
+   ────────────────────────────────────────────────────────────── */
+export const rooms = [
+  {
+    id: "deluxe-suite",
+    name: "Deluxe Suite",
+    description: "Spacious living area with panoramic views, marble bathroom, and curated furnishings designed for comfort and elegance.",
+    price: 289,
+    rating: 4.9,
+    reviews: 124,
+    capacity: 2,
+    size: "52 m²",
+    gradient: "room-gradient-1",
+    amenities: ["King Bed", "City View", "Rain Shower", "Mini Bar", "Wi-Fi"],
+    category: "Suite",
+    featured: true,
+  },
+  {
+    id: "executive-room",
+    name: "Executive Room",
+    description: "Refined workspace meets restful retreat — ideal for the discerning traveler who values both productivity and relaxation.",
+    price: 199,
+    rating: 4.8,
+    reviews: 98,
+    capacity: 2,
+    size: "38 m²",
+    gradient: "room-gradient-2",
+    amenities: ["Queen Bed", "Work Desk", "Coffee Maker", "Wi-Fi", "Safe"],
+    category: "Room",
+    featured: true,
+  },
+  {
+    id: "premium-family",
+    name: "Premium Family",
+    description: "Generous space for the whole family with connecting rooms, child-friendly amenities, and thoughtful touches throughout.",
+    price: 349,
+    rating: 4.9,
+    reviews: 87,
+    capacity: 4,
+    size: "65 m²",
+    gradient: "room-gradient-3",
+    amenities: ["2 Queen Beds", "Sofa Bed", "Bathtub", "Mini Fridge", "Wi-Fi"],
+    category: "Suite",
+    featured: true,
+  },
+  {
+    id: "penthouse",
+    name: "The Penthouse",
+    description: "Our finest accommodation — a private rooftop retreat with expansive terrace, butler service, and unobstructed skyline views.",
+    price: 599,
+    rating: 5.0,
+    reviews: 42,
+    capacity: 2,
+    size: "110 m²",
+    gradient: "room-gradient-4",
+    amenities: ["King Bed", "Private Terrace", "Butler Service", "Jacuzzi", "Wi-Fi"],
+    category: "Penthouse",
+    featured: false,
+  },
+  {
+    id: "garden-view",
+    name: "Garden View Room",
+    description: "A serene escape overlooking our landscaped gardens — natural light, organic textures, and a private balcony.",
+    price: 179,
+    rating: 4.7,
+    reviews: 156,
+    capacity: 2,
+    size: "34 m²",
+    gradient: "room-gradient-5",
+    amenities: ["Queen Bed", "Garden View", "Balcony", "Coffee Maker", "Wi-Fi"],
+    category: "Room",
+    featured: false,
+  },
+  {
+    id: "accessible-suite",
+    name: "Accessible Suite",
+    description: "Fully accessible luxury with wide doorways, roll-in shower, grab bars, and all the premium amenities you expect.",
+    price: 229,
+    rating: 4.8,
+    reviews: 63,
+    capacity: 2,
+    size: "44 m²",
+    gradient: "room-gradient-1",
+    amenities: ["Queen Bed", "Roll-in Shower", "Grab Bars", "Smart Controls", "Wi-Fi"],
+    category: "Suite",
+    featured: false,
+  },
+];
 
 /* ──────────────────────────────────────────────────────────────
    HERO
@@ -164,31 +251,31 @@ function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-sm font-medium text-primary mb-6">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              Trusted by 50,000+ Patients
+            <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-xs font-semibold tracking-wide uppercase text-navy-800 mb-6">
+              <Sparkles className="w-3.5 h-3.5 text-gold-400" />
+              Five-Star Hospitality Since 2001
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
-              Your Health,{" "}
-              <span className="shimmer-text">Our Priority</span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-navy-900">
+              Where Every Stay{" "}
+              <span className="shimmer-text">Becomes a Memory</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-xl">
-              DMC Hospital delivers world-class healthcare with cutting-edge technology,
-              compassionate specialists, and personalized treatment plans — all under one roof.
+              DMC Hospitality delivers an experience defined by understated luxury, impeccable service,
+              and spaces crafted for the modern traveler who values both comfort and character.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
-                to="/auth"
-                className="glass-btn px-7 py-3.5 rounded-xl text-sm font-semibold text-white inline-flex items-center gap-2 relative pulse-ring"
+                to="/catalog"
+                className="glass-btn-gold px-7 py-3.5 rounded-xl text-sm font-semibold text-white inline-flex items-center gap-2 relative pulse-ring"
               >
-                Book Appointment
+                Explore Rooms
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="#services"
-                className="px-7 py-3.5 rounded-xl text-sm font-semibold glass inline-flex items-center gap-2 hover:bg-white/70 transition-all"
+                href="#rooms"
+                className="px-7 py-3.5 rounded-xl text-sm font-semibold glass inline-flex items-center gap-2 hover:bg-white/70 transition-all text-navy-800"
               >
-                Explore Services
+                View Gallery
                 <ChevronRight className="w-4 h-4" />
               </a>
             </div>
@@ -196,12 +283,12 @@ function Hero() {
             {/* Trust Badges */}
             <div className="mt-10 flex items-center gap-6 flex-wrap">
               {[
-                { icon: ShieldCheck, text: "NABH Accredited" },
-                { icon: Award, text: "25+ Years" },
-                { icon: Users, text: "200+ Doctors" },
+                { icon: ShieldCheck, text: "AAA Five Diamond" },
+                { icon: Award, text: "23 Years of Excellence" },
+                { icon: Star, text: "4.9 Guest Rating" },
               ].map((badge) => (
                 <div key={badge.text} className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <badge.icon className="w-4 h-4 text-primary" />
+                  <badge.icon className="w-4 h-4 text-navy-800" />
                   {badge.text}
                 </div>
               ))}
@@ -217,15 +304,15 @@ function Hero() {
           >
             <div className="relative w-full aspect-square max-w-lg mx-auto">
               {/* Outer ring */}
-              <div className="absolute inset-0 rounded-full border-2 border-dashed border-primary/10 animate-[spin_40s_linear_infinite]" />
-              <div className="absolute inset-4 rounded-full border border-primary/5" />
+              <div className="absolute inset-0 rounded-full border-2 border-dashed border-navy-200/30 animate-[spin_50s_linear_infinite]" />
+              <div className="absolute inset-4 rounded-full border border-navy-100/20" />
 
               {/* Main circle */}
               <div className="absolute inset-8 glass-strong rounded-full flex items-center justify-center">
                 <div className="text-center">
-                  <HeartPulse className="w-20 h-20 text-primary mx-auto float-animation" />
-                  <p className="mt-4 font-bold text-2xl text-primary">24/7</p>
-                  <p className="text-sm text-muted-foreground">Emergency Care</p>
+                  <BedDouble className="w-20 h-20 text-navy-800 mx-auto float-animation" />
+                  <p className="mt-4 font-bold text-2xl text-navy-900">DMC</p>
+                  <p className="text-sm text-muted-foreground">Hospitality</p>
                 </div>
               </div>
 
@@ -236,12 +323,12 @@ function Hero() {
                 className="absolute -top-2 right-4 glass-card rounded-2xl px-4 py-3 shadow-lg"
               >
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center">
-                    <Stethoscope className="w-4 h-4 text-primary" />
+                  <div className="w-8 h-8 rounded-full bg-gold-50 flex items-center justify-center">
+                    <Star className="w-4 h-4 text-gold-500 fill-gold-500" />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold">Dr. Smith</p>
-                    <p className="text-[10px] text-muted-foreground">Cardiology</p>
+                    <p className="text-xs font-semibold text-navy-900">4.9 / 5.0</p>
+                    <p className="text-[10px] text-muted-foreground">Guest Rating</p>
                   </div>
                 </div>
               </motion.div>
@@ -252,12 +339,12 @@ function Hero() {
                 className="absolute bottom-8 -left-2 glass-card rounded-2xl px-4 py-3 shadow-lg"
               >
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center">
-                    <HeartPulse className="w-4 h-4 text-sky-500" />
+                  <div className="w-8 h-8 rounded-full bg-navy-50 flex items-center justify-center">
+                    <Award className="w-4 h-4 text-navy-600" />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold">98.7%</p>
-                    <p className="text-[10px] text-muted-foreground">Success Rate</p>
+                    <p className="text-xs font-semibold text-navy-900">Top Rated</p>
+                    <p className="text-[10px] text-muted-foreground">2024 Travel Awards</p>
                   </div>
                 </div>
               </motion.div>
@@ -268,12 +355,12 @@ function Hero() {
                 className="absolute -bottom-2 right-8 glass-card rounded-2xl px-4 py-3 shadow-lg"
               >
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center">
-                    <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                  <div className="w-8 h-8 rounded-full bg-teal-50 flex items-center justify-center">
+                    <Users className="w-4 h-4 text-teal-600" />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold">4.9 / 5.0</p>
-                    <p className="text-[10px] text-muted-foreground">Patient Rating</p>
+                    <p className="text-xs font-semibold text-navy-900">50,000+</p>
+                    <p className="text-[10px] text-muted-foreground">Happy Guests</p>
                   </div>
                 </div>
               </motion.div>
@@ -289,119 +376,86 @@ function Hero() {
 }
 
 /* ──────────────────────────────────────────────────────────────
-   SERVICES
+   FEATURED ROOMS
    ────────────────────────────────────────────────────────────── */
-const services = [
-  {
-    icon: HeartPulse,
-    title: "Cardiology",
-    desc: "Advanced cardiac care with state-of-the-art catheterization labs and experienced cardiologists.",
-    color: "bg-rose-50 text-rose-500",
-    accent: "from-rose-500/10 to-transparent",
-  },
-  {
-    icon: Brain,
-    title: "Neurology",
-    desc: "Comprehensive neurological diagnostics and treatment for brain, spine, and nerve conditions.",
-    color: "bg-violet-50 text-violet-500",
-    accent: "from-violet-500/10 to-transparent",
-  },
-  {
-    icon: Eye,
-    title: "Ophthalmology",
-    desc: "Expert eye care from routine exams to advanced surgical procedures with modern laser tech.",
-    color: "bg-sky-50 text-sky-500",
-    accent: "from-sky-500/10 to-transparent",
-  },
-  {
-    icon: Bone,
-    title: "Orthopedics",
-    desc: "Specialized bone and joint care including joint replacements, sports medicine, and rehabilitation.",
-    color: "bg-amber-50 text-amber-600",
-    accent: "from-amber-500/10 to-transparent",
-  },
-  {
-    icon: Baby,
-    title: "Pediatrics",
-    desc: "Compassionate healthcare for children from newborns to adolescents in a child-friendly environment.",
-    color: "bg-teal-50 text-teal-600",
-    accent: "from-teal-500/10 to-transparent",
-  },
-  {
-    icon: Stethoscope,
-    title: "General Medicine",
-    desc: "Primary care for adults covering prevention, diagnosis, and treatment of common health conditions.",
-    color: "bg-emerald-50 text-emerald-600",
-    accent: "from-emerald-500/10 to-transparent",
-  },
-];
-
-function Services() {
+function FeaturedRooms() {
   const sectionRef = useScrollReveal();
   const gridRef = useScrollReveal();
+  const featured = rooms.filter((r) => r.featured);
 
   return (
-    <section id="services" className="py-24 relative">
+    <section id="rooms" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
         <div ref={sectionRef} className="reveal-up text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary mb-4">
-            Our Services
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-navy-900/5 text-navy-800 mb-4">
+            Accommodations
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            World-Class{" "}
-            <span className="shimmer-text">Medical Services</span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-navy-900">
+            Curated <span className="shimmer-text">Rooms & Suites</span>
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            Equipped with the latest technology and staffed by renowned specialists,
-            DMC Hospital provides comprehensive healthcare across every major discipline.
+            Each space has been designed with intention — natural materials, considered lighting,
+            and details that reward attention.
           </p>
         </div>
 
-        {/* Grid */}
         <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
-          {services.map((s) => (
-            <ServiceCard key={s.title} {...s} />
+          {featured.map((room) => (
+            <Link key={room.id} to={`/room/${room.id}`}>
+              <div className="glass-card rounded-2xl overflow-hidden group cursor-pointer">
+                {/* Image placeholder */}
+                <div className={`h-52 ${room.gradient} relative overflow-hidden`}>
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-900/20 to-transparent" />
+                  <div className="absolute top-4 left-4 glass px-3 py-1 rounded-full text-xs font-semibold text-navy-900">
+                    {room.category}
+                  </div>
+                  <div className="absolute bottom-4 right-4 w-9 h-9 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Eye className="w-4 h-4 text-navy-900" />
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-lg font-bold text-navy-900 group-hover:text-gold-600 transition-colors">
+                      {room.name}
+                    </h3>
+                    <div className="flex items-center gap-1">
+                      <Star className="w-3.5 h-3.5 text-gold-400 fill-gold-400" />
+                      <span className="text-sm font-semibold">{room.rating}</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-2">
+                    {room.description}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <BedDouble className="w-3.5 h-3.5" /> {room.capacity} Guests
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Maximize className="w-3.5 h-3.5" /> {room.size}
+                      </span>
+                    </div>
+                    <p className="text-lg font-bold text-navy-900">
+                      ${room.price}
+                      <span className="text-xs font-normal text-muted-foreground"> / night</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Link>
           ))}
+        </div>
+
+        <div className="text-center mt-10">
+          <Link
+            to="/catalog"
+            className="glass px-6 py-3 rounded-xl text-sm font-semibold inline-flex items-center gap-2 hover:bg-white/70 transition-all text-navy-800"
+          >
+            View All Rooms <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </section>
-  );
-}
-
-function ServiceCard({
-  icon: Icon,
-  title,
-  desc,
-  color,
-  accent,
-}: {
-  icon: ComponentType<{ className?: string }>;
-  title: string;
-  desc: string;
-  color: string;
-  accent: string;
-}) {
-  return (
-    <div className="glass-card rounded-2xl p-7 group cursor-pointer relative overflow-hidden">
-      {/* Hover gradient */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-      />
-
-      <div className="relative z-10">
-        <div
-          className={`w-14 h-14 rounded-2xl ${color} flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}
-        >
-          <Icon className="w-7 h-7" />
-        </div>
-        <h3 className="text-lg font-bold mb-2">{title}</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed mb-4">{desc}</p>
-        <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary group-hover:gap-2 transition-all duration-300">
-          Learn More <ArrowRight className="w-4 h-4" />
-        </span>
-      </div>
-    </div>
   );
 }
 
@@ -414,8 +468,7 @@ function About() {
 
   return (
     <section id="about" className="py-24 relative overflow-hidden">
-      {/* Background orb */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-navy-100/40 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -424,10 +477,10 @@ function About() {
             <div className="glass-strong rounded-3xl p-8 relative">
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { label: "Bed Capacity", value: "500+", icon: HeartPulse },
-                  { label: "Departments", value: "30+", icon: Stethoscope },
-                  { label: "Operations / Year", value: "10,000+", icon: Brain },
-                  { label: "Emergency Cases", value: "24/7", icon: Ambulance },
+                  { label: "Luxury Suites", value: "120+", icon: BedDouble },
+                  { label: "Team Members", value: "300+", icon: Users },
+                  { label: "Guest Satisfaction", value: "99%", icon: Star },
+                  { label: "Years of Service", value: "23+", icon: Award },
                 ].map((stat, i) => (
                   <motion.div
                     key={stat.label}
@@ -437,8 +490,8 @@ function About() {
                     transition={{ delay: i * 0.1, duration: 0.5 }}
                     className="glass-card rounded-2xl p-5 text-center group"
                   >
-                    <stat.icon className="w-8 h-8 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform" />
-                    <p className="text-2xl font-bold text-primary">{stat.value}</p>
+                    <stat.icon className="w-8 h-8 text-navy-800 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                    <p className="text-2xl font-bold text-navy-900">{stat.value}</p>
                     <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
                   </motion.div>
                 ))}
@@ -448,50 +501,49 @@ function About() {
 
           {/* Right – Content */}
           <div ref={rightRef} className="reveal-right">
-            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary mb-4">
-              About DMC Hospital
+            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-navy-900/5 text-navy-800 mb-4">
+              Our Story
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              Healing With{" "}
-              <span className="shimmer-text">Compassion & Innovation</span>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-navy-900">
+              A Legacy of{" "}
+              <span className="shimmer-text">Thoughtful Hospitality</span>
             </h2>
             <p className="mt-6 text-muted-foreground leading-relaxed">
-              Founded over 25 years ago, DMC Hospital has grown from a small clinic into one of the
-              region's most trusted healthcare institutions. We combine advanced medical technology
-              with a deeply human approach to care.
+              Since 2001, DMC Hospitality has set the standard for what luxury means in the modern era.
+              We believe true hospitality is invisible — it anticipates rather than reacts.
             </p>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              Our team of 200+ board-certified physicians, surgeons, and specialists work
-              collaboratively to deliver treatment plans tailored to each patient's unique needs.
+              Our team of 300 hospitality professionals shares a single philosophy: every guest
+              deserves to feel that their stay was designed with them in mind.
             </p>
 
             <div className="mt-8 space-y-4">
               {[
-                "NABH & JCI accredited facility",
-                "24/7 emergency & trauma center",
-                "Advanced robotic surgery suite",
+                "Sustainably designed with LEED Gold certification",
+                "On-site fine dining by Michelin-recognized chef",
+                "Private concierge and curated local experiences",
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <ShieldCheck className="w-3.5 h-3.5 text-primary" />
+                  <div className="w-6 h-6 rounded-full bg-navy-900/5 flex items-center justify-center shrink-0">
+                    <ShieldCheck className="w-3.5 h-3.5 text-navy-800" />
                   </div>
-                  <span className="text-sm font-medium">{item}</span>
+                  <span className="text-sm font-medium text-navy-800">{item}</span>
                 </div>
               ))}
             </div>
 
             <div className="mt-8 flex gap-4">
               <Link
-                to="/auth"
-                className="glass-btn px-6 py-3 rounded-xl text-sm font-semibold text-white inline-flex items-center gap-2"
+                to="/catalog"
+                className="glass-btn-gold px-6 py-3 rounded-xl text-sm font-semibold text-white inline-flex items-center gap-2"
               >
-                Meet Our Team <ArrowRight className="w-4 h-4" />
+                Book a Stay <ArrowRight className="w-4 h-4" />
               </Link>
               <a
                 href="tel:+1800123456"
-                className="glass px-6 py-3 rounded-xl text-sm font-semibold inline-flex items-center gap-2 hover:bg-white/70 transition-all"
+                className="glass px-6 py-3 rounded-xl text-sm font-semibold inline-flex items-center gap-2 hover:bg-white/70 transition-all text-navy-800"
               >
-                <Phone className="w-4 h-4 text-primary" />
+                <Phone className="w-4 h-4" />
                 Call Us
               </a>
             </div>
@@ -505,11 +557,11 @@ function About() {
 /* ──────────────────────────────────────────────────────────────
    STATS BAR
    ────────────────────────────────────────────────────────────── */
-const stats = [
-  { label: "Patients Treated", value: "50,000+", suffix: "" },
-  { label: "Expert Doctors", value: "200+", suffix: "" },
-  { label: "Success Rate", value: "98.7", suffix: "%" },
-  { label: "Years of Service", value: "25", suffix: "+" },
+const statItems = [
+  { label: "Guests Hosted", value: "50,000+" },
+  { label: "Luxury Suites", value: "120+" },
+  { label: "Guest Rating", value: "4.9" },
+  { label: "Years of Service", value: "23+" },
 ];
 
 function Stats() {
@@ -522,7 +574,7 @@ function Stats() {
           ref={ref}
           className="reveal-scale glass-strong rounded-3xl p-10 grid grid-cols-2 md:grid-cols-4 gap-8"
         >
-          {stats.map((stat, i) => (
+          {statItems.map((stat, i) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 20 }}
@@ -531,9 +583,8 @@ function Stats() {
               transition={{ delay: i * 0.1, duration: 0.5 }}
               className="text-center"
             >
-              <p className="text-3xl sm:text-4xl font-bold text-primary">
+              <p className="text-3xl sm:text-4xl font-bold text-navy-900">
                 {stat.value}
-                <span className="text-primary/60">{stat.suffix}</span>
               </p>
               <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
             </motion.div>
@@ -545,96 +596,90 @@ function Stats() {
 }
 
 /* ──────────────────────────────────────────────────────────────
-   DOCTORS
+   EXPERIENCE / AMENITIES
    ────────────────────────────────────────────────────────────── */
-const doctors = [
+const experiences = [
   {
-    name: "Dr. Sarah Mitchell",
-    spec: "Cardiologist",
-    rating: 4.9,
-    reviews: 312,
-    initials: "SM",
-    color: "from-teal-400 to-sky-400",
+    icon: UtensilsCrossed,
+    title: "Fine Dining",
+    desc: "Seasonal menus crafted by our Michelin-recognized chef, featuring locally sourced ingredients and an award-winning wine collection.",
   },
   {
-    name: "Dr. James Chen",
-    spec: "Neurologist",
-    rating: 4.8,
-    reviews: 287,
-    initials: "JC",
-    color: "from-violet-400 to-purple-400",
+    icon: Bath,
+    title: "Wellness & Spa",
+    desc: "A full-service spa offering therapeutic treatments, heated pools, sauna, and personalized wellness programs.",
   },
   {
-    name: "Dr. Emily Ross",
-    spec: "Pediatrician",
-    rating: 4.9,
-    reviews: 445,
-    initials: "ER",
-    color: "from-rose-400 to-pink-400",
+    icon: Dumbbell,
+    title: "Fitness Center",
+    desc: "State-of-the-art equipment, personal training, and daily yoga sessions in a space designed to inspire movement.",
   },
   {
-    name: "Dr. Michael Park",
-    spec: "Orthopedic Surgeon",
-    rating: 4.7,
-    reviews: 198,
-    initials: "MP",
-    color: "from-amber-400 to-orange-400",
+    icon: Leaf,
+    title: "Rooftop Garden",
+    desc: "A tranquil green space above the city skyline — perfect for morning meditation or an evening cocktail.",
+  },
+  {
+    icon: Coffee,
+    title: "Artisan Café",
+    desc: "Specialty coffee, fresh pastries, and a curated selection of teas served in a relaxed, light-filled environment.",
+  },
+  {
+    icon: ParkingCircle,
+    title: "Valet & Parking",
+    desc: "Complimentary valet service and secure underground parking available to all guests around the clock.",
   },
 ];
 
-function Doctors() {
+function Experience() {
   const sectionRef = useScrollReveal();
   const gridRef = useScrollReveal();
 
   return (
-    <section id="doctors" className="py-24 relative">
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-sky-500/5 blur-3xl pointer-events-none" />
+    <section id="experience" className="py-24 relative">
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full bg-gold-100/40 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div ref={sectionRef} className="reveal-up text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary mb-4">
-            Our Specialists
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-navy-900/5 text-navy-800 mb-4">
+            The Experience
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Meet Our <span className="shimmer-text">Expert Doctors</span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-navy-900">
+            Beyond the <span className="shimmer-text">Room Itself</span>
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            Our team of highly qualified physicians bring decades of combined experience
-            and a commitment to exceptional patient outcomes.
+            True luxury is found in the details — from the moment you arrive to the moment you leave,
+            every touchpoint has been considered.
           </p>
         </div>
 
-        <div ref={gridRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger">
-          {doctors.map((doc) => (
-            <div
-              key={doc.name}
-              className="glass-card rounded-2xl p-6 text-center group cursor-pointer"
-            >
-              <div
-                className={`w-20 h-20 rounded-full bg-gradient-to-br ${doc.color} mx-auto mb-4 flex items-center justify-center text-white text-xl font-bold transition-transform duration-300 group-hover:scale-110`}
-              >
-                {doc.initials}
-              </div>
-              <h3 className="font-bold text-base">{doc.name}</h3>
-              <p className="text-sm text-primary font-medium">{doc.spec}</p>
-              <div className="flex items-center justify-center gap-1 mt-2">
-                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                <span className="text-sm font-semibold">{doc.rating}</span>
-                <span className="text-xs text-muted-foreground">
-                  ({doc.reviews} reviews)
-                </span>
-              </div>
-              <Link
-                to="/auth"
-                className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              >
-                Book Consultation <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
+        <div ref={gridRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
+          {experiences.map((exp) => (
+            <ExperienceCard key={exp.title} {...exp} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function ExperienceCard({
+  icon: Icon,
+  title,
+  desc,
+}: {
+  icon: ComponentType<{ className?: string }>;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <div className="glass-card rounded-2xl p-7 group cursor-pointer">
+      <div className="w-14 h-14 rounded-2xl bg-navy-900/5 flex items-center justify-center mb-5 transition-all duration-300 group-hover:bg-navy-900 group-hover:scale-110 group-hover:rotate-3">
+        <Icon className="w-7 h-7 text-navy-800 transition-colors duration-300 group-hover:text-white" />
+      </div>
+      <h3 className="text-lg font-bold text-navy-900 mb-2">{title}</h3>
+      <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+    </div>
   );
 }
 
@@ -643,25 +688,25 @@ function Doctors() {
    ────────────────────────────────────────────────────────────── */
 const testimonials = [
   {
-    name: "Priya Sharma",
-    role: "Cardiac Patient",
-    text: "The care I received at DMC Hospital was exceptional. Dr. Mitchell and her team made me feel safe throughout my entire cardiac procedure. The facilities are world-class.",
+    name: "Victoria Chen",
+    role: "Business Traveler",
+    text: "DMC Hospitality understands what it means to be away from home. Every detail — from the thread count to the turn-down service — feels intentional and deeply personal.",
     rating: 5,
-    initials: "PS",
+    initials: "VC",
   },
   {
-    name: "Robert Williams",
-    role: "Orthopedic Patient",
-    text: "After my knee replacement, the recovery program was outstanding. The physiotherapy team was incredibly supportive and I was back on my feet in weeks.",
+    name: "James Harrington",
+    role: "Leisure Guest",
+    text: "We celebrated our anniversary here and it exceeded every expectation. The rooftop dinner, the spa, the room itself — everything was flawless. We will be back.",
     rating: 5,
-    initials: "RW",
+    initials: "JH",
   },
   {
-    name: "Ananya Patel",
-    role: "Pediatric Care",
-    text: "DMC Hospital's pediatric wing made my daughter's hospital stay so much easier. The staff is warm, the rooms are child-friendly, and the doctors are very patient.",
+    name: "Anika Sharma",
+    role: "Family Vacation",
+    text: "Traveling with kids can be stressful, but DMC made it effortless. The family suite was beautiful, the staff was incredibly welcoming, and our children loved the gardens.",
     rating: 5,
-    initials: "AP",
+    initials: "AS",
   },
 ];
 
@@ -673,64 +718,65 @@ function Testimonials() {
   const next = () => setCurrent((c) => (c === testimonials.length - 1 ? 0 : c + 1));
 
   return (
-    <section id="testimonials" className="py-24 relative">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-teal-500/5 blur-3xl pointer-events-none" />
+    <section id="reviews" className="py-24 relative">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-navy-100/30 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div ref={sectionRef} className="reveal-up text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary mb-4">
-            Patient Stories
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-navy-900/5 text-navy-800 mb-4">
+            Guest Voices
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            What Our <span className="shimmer-text">Patients Say</span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-navy-900">
+            What Our <span className="shimmer-text">Guests Say</span>
           </h2>
         </div>
 
         <div className="max-w-3xl mx-auto relative">
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="glass-strong rounded-3xl p-10 text-center"
-          >
-            {/* Stars */}
-            <div className="flex justify-center gap-1 mb-6">
-              {Array.from({ length: testimonials[current].rating }).map((_, i) => (
-                <Star key={i} className="w-5 h-5 text-amber-400 fill-amber-400" />
-              ))}
-            </div>
+          <div className="glass-strong rounded-3xl p-10 sm:p-12 text-center relative overflow-hidden">
+            <Quote className="w-10 h-10 text-navy-200 mx-auto mb-6" />
 
-            <p className="text-lg leading-relaxed text-foreground/80 italic">
-              "{testimonials[current].text}"
-            </p>
+            <motion.div
+              key={current}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="flex justify-center gap-1 mb-6">
+                {Array.from({ length: testimonials[current].rating }).map((_, i) => (
+                  <Star key={i} className="w-5 h-5 text-gold-400 fill-gold-400" />
+                ))}
+              </div>
 
-            <div className="mt-8 flex items-center justify-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-sky-400 flex items-center justify-center text-white font-bold">
-                {testimonials[current].initials}
+              <p className="text-lg leading-relaxed text-foreground/80 italic">
+                "{testimonials[current].text}"
+              </p>
+
+              <div className="mt-8 flex items-center justify-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-navy-900 flex items-center justify-center text-white font-bold text-sm">
+                  {testimonials[current].initials}
+                </div>
+                <div className="text-left">
+                  <p className="font-bold text-sm text-navy-900">{testimonials[current].name}</p>
+                  <p className="text-xs text-muted-foreground">{testimonials[current].role}</p>
+                </div>
               </div>
-              <div className="text-left">
-                <p className="font-bold text-sm">{testimonials[current].name}</p>
-                <p className="text-xs text-muted-foreground">{testimonials[current].role}</p>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* Nav arrows */}
           <button
             onClick={prev}
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/70 transition-all hidden sm:flex"
-            aria-label="Previous testimonial"
+            aria-label="Previous review"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-5 h-5 text-navy-800" />
           </button>
           <button
             onClick={next}
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/70 transition-all hidden sm:flex"
-            aria-label="Next testimonial"
+            aria-label="Next review"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-5 h-5 text-navy-800" />
           </button>
 
           {/* Dots */}
@@ -739,12 +785,12 @@ function Testimonials() {
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                className={`h-2.5 rounded-full transition-all duration-300 ${
                   i === current
-                    ? "bg-primary w-8"
-                    : "bg-primary/20 hover:bg-primary/40"
+                    ? "bg-navy-900 w-8"
+                    : "bg-navy-900/15 w-2.5 hover:bg-navy-900/30"
                 }`}
-                aria-label={`Go to testimonial ${i + 1}`}
+                aria-label={`Go to review ${i + 1}`}
               />
             ))}
           </div>
@@ -761,55 +807,52 @@ function CTA() {
   const ref = useScrollReveal();
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section id="contact" className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div
           ref={ref}
           className="reveal-scale glass-strong rounded-3xl p-12 sm:p-16 text-center relative overflow-hidden"
         >
-          {/* Decorative orbs */}
-          <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-sky-500/10 blur-3xl pointer-events-none" />
+          <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-navy-100/30 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-gold-100/30 blur-3xl pointer-events-none" />
 
           <div className="relative z-10">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              Ready to Take the{" "}
-              <span className="shimmer-text">Next Step?</span>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-navy-900">
+              Begin Your <span className="shimmer-text">Next Chapter</span>
             </h2>
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-              Schedule your consultation today and experience healthcare
-              that puts you first. Our team is ready to help.
+              Whether you are planning a weekend escape, a business trip, or a once-in-a-lifetime
+              celebration — your table is set and your suite awaits.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link
                 to="/auth"
-                className="glass-btn px-8 py-4 rounded-xl text-sm font-semibold text-white inline-flex items-center gap-2 relative pulse-ring"
+                className="glass-btn-gold px-8 py-4 rounded-xl text-sm font-semibold text-white inline-flex items-center gap-2 relative pulse-ring"
               >
-                Book Appointment Now
+                Reserve Your Stay
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
                 href="tel:+1800123456"
-                className="glass px-8 py-4 rounded-xl text-sm font-semibold inline-flex items-center gap-2 hover:bg-white/70 transition-all"
+                className="glass px-8 py-4 rounded-xl text-sm font-semibold inline-flex items-center gap-2 hover:bg-white/70 transition-all text-navy-800"
               >
-                <Phone className="w-4 h-4 text-primary" />
+                <Phone className="w-4 h-4" />
                 +1 800-123-456
               </a>
             </div>
 
-            {/* Quick info pills */}
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               {[
-                { icon: Clock, text: "Mon – Sat: 8AM – 10PM" },
-                { icon: MapPin, text: "123 Medical Avenue, City" },
-                { icon: Mail, text: "care@dmchospital.com" },
+                { icon: Clock, text: "Front Desk: 24 Hours" },
+                { icon: MapPin, text: "456 Grand Avenue, Downtown" },
+                { icon: Mail, text: "reservations@dmchospitality.com" },
               ].map((pill) => (
                 <div
                   key={pill.text}
-                  className="glass px-4 py-2 rounded-full text-xs font-medium flex items-center gap-2"
+                  className="glass px-4 py-2 rounded-full text-xs font-medium flex items-center gap-2 text-navy-700"
                 >
-                  <pill.icon className="w-3.5 h-3.5 text-primary" />
+                  <pill.icon className="w-3.5 h-3.5 text-gold-500" />
                   {pill.text}
                 </div>
               ))}
@@ -825,27 +868,27 @@ function CTA() {
    FOOTER
    ────────────────────────────────────────────────────────────── */
 const footerLinks = {
-  Services: [
-    "Cardiology",
-    "Neurology",
-    "Orthopedics",
-    "Pediatrics",
-    "Ophthalmology",
-    "General Medicine",
+  Rooms: [
+    "Deluxe Suite",
+    "Executive Room",
+    "Premium Family",
+    "The Penthouse",
+    "Garden View",
+    "Accessible Suite",
   ],
   Company: [
-    "About Us",
-    "Our Doctors",
-    "Departments",
-    "Health Blog",
+    "Our Story",
+    "Leadership",
     "Careers",
+    "Press",
+    "Sustainability",
   ],
-  "Patient Care": [
-    "Book Appointment",
-    "Patient Portal",
-    "Insurance Info",
-    "Medical Records",
-    "Visitor Policy",
+  "Guest Services": [
+    "Reservations",
+    "Concierge",
+    "Dining",
+    "Spa & Wellness",
+    "Events & Meetings",
   ],
 };
 
@@ -858,34 +901,33 @@ function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl glass-btn flex items-center justify-center text-white font-bold text-lg">
+              <div className="w-10 h-10 rounded-xl bg-navy-900 flex items-center justify-center text-white font-bold text-lg tracking-tight">
                 D
               </div>
-              <span className="text-xl font-bold tracking-tight">
-                <span className="text-primary">DMC</span>{" "}
-                <span className="text-foreground/70">Hospital</span>
+              <span className="text-xl font-bold tracking-tight text-navy-900">
+                DMC <span className="font-light text-navy-600">Hospitality</span>
               </span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Providing compassionate, world-class healthcare since 2001.
-              Your trust drives everything we do.
+              Five-star hospitality designed around you — where understated luxury
+              meets genuine warmth, and every detail serves a purpose.
             </p>
 
             <div className="mt-6 space-y-2">
               <a
                 href="tel:+1800123456"
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Phone className="w-4 h-4" /> +1 800-123-456
               </a>
               <a
-                href="mailto:care@dmchospital.com"
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                href="mailto:reservations@dmchospitality.com"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                <Mail className="w-4 h-4" /> care@dmchospital.com
+                <Mail className="w-4 h-4" /> reservations@dmchospitality.com
               </a>
               <p className="flex items-center gap-2 text-sm text-muted-foreground">
-                <MapPin className="w-4 h-4" /> 123 Medical Avenue, City
+                <MapPin className="w-4 h-4" /> 456 Grand Avenue, Downtown
               </p>
             </div>
           </div>
@@ -893,13 +935,13 @@ function Footer() {
           {/* Link Columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="font-bold text-sm mb-4">{title}</h4>
+              <h4 className="font-bold text-sm text-navy-900 mb-4">{title}</h4>
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link}>
                     <a
                       href="#"
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 group"
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1 group"
                     >
                       {link}
                       <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -912,18 +954,18 @@ function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-6 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-16 pt-6 border-t border-black/5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} DMC Hospital. All rights reserved.
+            © {new Date().getFullYear()} DMC Hospitality. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">
+            <a href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">
+            <a href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Terms of Service
             </a>
-            <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">
+            <a href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
               Sitemap
             </a>
           </div>
@@ -943,12 +985,12 @@ export default function Landing() {
       <Navbar />
       <Hero />
       <div className="section-divider" />
-      <Services />
+      <FeaturedRooms />
       <div className="section-divider" />
       <About />
       <Stats />
       <div className="section-divider" />
-      <Doctors />
+      <Experience />
       <div className="section-divider" />
       <Testimonials />
       <CTA />
